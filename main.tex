@@ -13,22 +13,24 @@
 
 
 \begin{abstract}
-Since the very first translation of a mathematical express into executable code, the process of porting applications to computational resources has been at the core of scientific computing. Of the thousands of scholarly communications published every year, at the heart of the majority of them is the analysis of some data, the simulation of a physical, chemical, biological or other process and the interpretation thereof. Scientific computing can therefore in some sense be distilled to the execution of an application - or rather sets of applications which are combined into complex workflows. Due to the complexity and number both of scientific packages as well as computing platforms, delivering these applications to end users has always been a significant challenge through the grid era, and remains so in the cloud era. In this contribution we describe a platform for user-driven, continuous integration and delivery of research applications in a distributed environment - project CODE-RADE. Starting with 6 hypotheses describing the problem at hand, we put forward technical and social solutions to these. Combining widely-used and thoroughly-tested tools, we show how it is possible to manage the dependencies and configurations of a wide range of scientific applications, in an almost fully-automated way. The CODE-RADE platform is a means for developing trust between public computing and data infrastructures on the one hand and various developer and scientific communities on the other hand. Predefined integration tests are specified for any new application, allowing the system to be user-driven. This greatly accelerates time-to-production for scientific applications, while reducing the workload for administrators of HPC, grid and cloud installations. Finally, we will give some insight into how this platform could be extended to address issues of reproducibility and collaboration in scientific research in Africa.\end{abstract}
+Since the very first translation of a mathematical expression into binary executable code, the process of porting applications to computational resources has been at the core of scientific computing. Of the thousands of scholarly communications published every year, at the heart of the majority of them is the analysis of some data, the simulation of a physical, chemical, biological or other process and the interpretation thereof. Scientific computing can therefore in some sense be distilled to the execution of an application - or rather sets of applications which are combined into complex workflows. Due to the complexity and number both of scientific packages as well as computing platforms, delivering these applications to end users has always been a significant challenge through the grid era, and remains so in the cloud era. In this contribution we describe a platform for user-driven, continuous integration and delivery of research applications in a distributed environment - project CODE-RADE. Starting with 6 hypotheses describing the problem at hand, we put forward technical and social solutions to these. Combining widely-used and thoroughly-tested tools, we show how it is possible to manage the dependencies and configurations of a wide range of scientific applications, in an almost fully-automated way. The CODE-RADE platform is a means for developing trust between public computing and data infrastructures on the one hand and various developer and scientific communities on the other hand. Predefined integration tests are specified for any new application, allowing the system to be user-driven. This greatly accelerates time-to-production for scientific applications, while reducing the workload for administrators of HPC, grid and cloud installations. Finally, we will give some insight into how this platform could be extended to address issues of reproducibility and collaboration in scientific research in Africa.\end{abstract}
 
 \section{Introduction}
 
 Wherein we express the problem and how we propose to solve it.
 
+
 \section{Hypotheses of Application Porting}
 
-Wherein we describe the 7 hypotheses of bringing applications to a distributed infrastructure
+There are 7 hypotheses of bringing applications to a distributed infrastructure, namely:
 \begin{enumerate}
     \item It is always an application
-    \item No software is an island
-    \item Applications need an environment
+    \item No software is an island\\
+      There are always dependencies. Lets make them explicit
+    \item Applications need an environment.\\
+
     \item There is more than one environment
-    \item Solutions decay\\
-      People move on to other projects, change research focus.
+    \item Application solutions decay
     \item Humans need not apply
     \item This stuff is not hard.
   \end{enumerate}
@@ -44,18 +46,18 @@ wherein we describe the platform components and workflows
 \subsection{CODE-RADE components}
 
 \begin{itemize}
-	\item Jenkins
-    \item Github
-    \item CVMFS
+	\item Continuous integratoin from Jenkins.
+    \item Version control from github.
+    \item Automated software delivery.CVMFS
 \end{itemize}
 
 \subsection{CODE-RADE workflows}
 
 \begin{itemize}
 	\item Application porting
-    \item delivery
-    \item review
-    \item publication
+   \item delivery
+   \item review
+   \item publication
 \end{itemize}
 
 \section{Discussion}
