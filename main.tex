@@ -1,20 +1,73 @@
 \documentclass[a4paper]{jpconf}
 \usepackage{graphicx}
 \begin{document}
-\title{Preparing a paper using \LaTeXe\ for publication in \jpcs}
+\title{ CODE-RADE - Community Infrastructure for the Delivery of Physics Applications}
 
-\author{Jacky Mucklow}
+\author{Bruce Becker}
+\address{C.S.I.R. Building 43 \\ 1 Meiring Naude Road \\ Brummeria \\ Pretoria \\ 0001}
+\ead{bbecker@csir.co.za}
 
-\address{Production Editor, \jpcs, \iopp, Dirac House, Temple Back, Bristol BS1~6BE, UK}
+\author{Sean Murray}
+\address{C.H.P.C. \\ Rosebank \\ Cape Town \\ 7700}
+\ead{murrays@cern.ch}
 
-\ead{jacky.mucklow@iop.org}
 
 \begin{abstract}
-All articles {\it must} contain an abstract. This document describes the  preparation of a conference paper to be published in \jpcs\ using \LaTeXe\ and the \cls\ class file. The abstract text should be formatted using 10 point font and indented 25 mm from the left margin. Leave 10 mm space after the abstract before you begin the main text of your article. The text of your article should start on the same page as the abstract. The abstract follows the addresses and should give readers concise information about the content of the article and indicate the main results obtained and conclusions drawn. As the abstract is not part of the text it should be complete in itself; no table numbers, figure numbers, references or displayed mathematical expressions should be included. It should be suitable for direct inclusion in abstracting services and should not normally exceed 200 words. The abstract should generally be restricted to a single paragraph. Since contemporary information-retrieval systems rely heavily on the content of titles and abstracts to identify relevant articles in literature searches, great care should be taken in constructing both.
-\end{abstract}
+Since the very first translation of a mathematical express into executable code, the process of porting applications to computational resources has been at the core of scientific computing. Of the thousands of scholarly communications published every year, at the heart of the majority of them is the analysis of some data, the simulation of a physical, chemical, biological or other process and the interpretation thereof. Scientific computing can therefore in some sense be distilled to the execution of an application - or rather sets of applications which are combined into complex workflows. Due to the complexity and number both of scientific packages as well as computing platforms, delivering these applications to end users has always been a significant challenge through the grid era, and remains so in the cloud era. In this contribution we describe a platform for user-driven, continuous integration and delivery of research applications in a distributed environment - project CODE-RADE. Starting with 6 hypotheses describing the problem at hand, we put forward technical and social solutions to these. Combining widely-used and thoroughly-tested tools, we show how it is possible to manage the dependencies and configurations of a wide range of scientific applications, in an almost fully-automated way. The CODE-RADE platform is a means for developing trust between public computing and data infrastructures on the one hand and various developer and scientific communities on the other hand. Predefined integration tests are specified for any new application, allowing the system to be user-driven. This greatly accelerates time-to-production for scientific applications, while reducing the workload for administrators of HPC, grid and cloud installations. Finally, we will give some insight into how this platform could be extended to address issues of reproducibility and collaboration in scientific research in Africa.\end{abstract}
 
 \section{Introduction}
-These guidelines show how to prepare articles for publication in \jpcs\ using \LaTeX\ so they can be published quickly and accurately. Articles will be refereed by the \corg s but the accepted PDF will be published with no editing, proofreading or changes to layout. It is, therefore, the author's responsibility to ensure that the content and layout are correct.  This document has been prepared using \cls\ so serves as a sample document. The class file and accompanying documentation are available from \verb"http://jpcs.iop.org".
+
+Wherein we express the problem and how we propose to solve it.
+\begin{enumerate}
+    \item It is always an application
+    \item No software is an island
+    \item Applications need an environment
+    \item There is more than one environment
+    \item Solutions decay
+    \item Humans need not apply
+    \item This stuff is not hard.
+  \end{enumerate}
+
+\section{Hypotheses of Application Porting}
+
+Wherein we describe the 7 hypotheses of bringing applications to a distributed infrastructure
+
+\section{Actors}
+
+wherein we describe the actors of the platform and their roles.
+
+\section{Platform}
+
+wherein we describe the platform components and workflows
+
+\subsection{CODE-RADE components}
+
+\begin{itemize}
+	\item Jenkins
+    \item Github
+    \item CVMFS
+\end{itemize}
+
+\subsection{CODE-RADE workflows}
+
+\begin{itemize}
+	\item Application porting
+    \item delivery
+    \item review
+    \item publication
+\end{itemize}
+
+\section{Discussion}
+
+wherein we bring it all home and tell you just how awesome CODE-RADE is.
+
+\subsection{CODE-RADE for Physics}
+
+ok, physicist - your time to shine. Here we say how CODE-RADE makes running physics applications so much easier on a distributed platform.
+
+\section{Summary, Conclusion and Futher work}
+
+As it says in the title...
 
 \section{Preparing your paper}
 \verb"jpconf" requires \LaTeXe\ and  can be used with other package files such
