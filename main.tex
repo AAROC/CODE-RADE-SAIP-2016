@@ -16,16 +16,17 @@
 Since the very first translation of a mathematical expression into binary executable code, the process of porting applications to computational resources has been at the core of scientific computing. Of the thousands of scholarly communications published every year, at the heart of the majority of them is the analysis of some data, the simulation of a physical, chemical, biological or other process and the interpretation thereof. Scientific computing can therefore in some sense be distilled to the execution of an application - or rather sets of applications which are combined into complex workflows. Due to the complexity and number both of scientific packages as well as computing platforms, delivering these applications to end users has always been a significant challenge through the grid era, and remains so in the cloud era. In this contribution we describe a platform for user-driven, continuous integration and delivery of research applications in a distributed environment - project CODE-RADE. Starting with 6 hypotheses describing the problem at hand, we put forward technical and social solutions to these. Combining widely-used and thoroughly-tested tools, we show how it is possible to manage the dependencies and configurations of a wide range of scientific applications, in an almost fully-automated way. The CODE-RADE platform is a means for developing trust between public computing and data infrastructures on the one hand and various developer and scientific communities on the other hand. Predefined integration tests are specified for any new application, allowing the system to be user-driven. This greatly accelerates time-to-production for scientific applications, while reducing the workload for administrators of HPC, grid and cloud installations. Finally, we will give some insight into how this platform could be extended to address issues of reproducibility and collaboration in scientific research in Africa.\end{abstract}
 
 \section{Introduction}
-Since the first computing program exceeded the capabilities of its original execution host, and 
-was attempted to be migrated to another platform whether it be bigger or 
+Since the first computing program exceeded the capabilities of its original execution host, and was attempted to be migrated to another platform whether it be bigger or 
 in another building, scientists have suffered trying to get their research done.
 Countless hours have been wasted getting programs to simply run as opposed to actually
-doing the science they inteded to do.
+doing the science they intended to do.
 
 It has been a long standing problem and irritation when one tries to get a program to run on computing infrastructure that is not sitting on your desk.
 The scale and complexity loosely follows that of the code and the computing system you wish to run on.
 
-Wherein we express the problem and how we propose to solve it.
+\subsection{The paradox of  plentiful computing}
+
+It is a central theme of scientific computing that there are never enough resources available to any particular researcher picked at random from a sample. Simultaneously, however, it 
 
 
 \section{Hypotheses of Application Porting}
