@@ -16,35 +16,52 @@
 Since the very first translation of a mathematical expression into binary executable code, the process of porting applications to computational resources has been at the core of scientific computing. Of the thousands of scholarly communications published every year, at the heart of the majority of them is the analysis of some data, the simulation of a physical, chemical, biological or other process and the interpretation thereof. Scientific computing can therefore in some sense be distilled to the execution of an application - or rather sets of applications which are combined into complex workflows. Due to the complexity and number both of scientific packages as well as computing platforms, delivering these applications to end users has always been a significant challenge through the grid era, and remains so in the cloud era. In this contribution we describe a platform for user-driven, continuous integration and delivery of research applications in a distributed environment - project CODE-RADE. Starting with 6 hypotheses describing the problem at hand, we put forward technical and social solutions to these. Combining widely-used and thoroughly-tested tools, we show how it is possible to manage the dependencies and configurations of a wide range of scientific applications, in an almost fully-automated way. The CODE-RADE platform is a means for developing trust between public computing and data infrastructures on the one hand and various developer and scientific communities on the other hand. Predefined integration tests are specified for any new application, allowing the system to be user-driven. This greatly accelerates time-to-production for scientific applications, while reducing the workload for administrators of HPC, grid and cloud installations. Finally, we will give some insight into how this platform could be extended to address issues of reproducibility and collaboration in scientific research in Africa.\end{abstract}
 
 \section{Introduction}
-Since the first computing program exceeded the capabilities of its original execution host, and was attempted to be migrated to another platform whether it be bigger or
-in another building, scientists have suffered trying to get their research done.
-Countless hours have been wasted getting programs to simply run as opposed to actually
-doing the science they intended to do.
+Since the first computing program exceeded the capabilities of its original execution host, and was attempted to be migrated to another platform whether it be bigger or in another building, scientists have suffered trying to get their research done. Countless hours have been wasted getting programs to simply run as opposed to actually doing the science they intended to do.
 
 It has been a long standing problem and irritation when one tries to get a program to run on computing infrastructure that is not sitting on your desk. The scale and complexity loosely follows that of the code and the computing system you wish to run on.
 
 \subsection{The paradox of  plentiful computing}
 
-It is a central theme of scientific computing that there are never enough resources available to any particular researcher picked at random from a sample. Simultaneously, however, there has been massive and near-pervasive investment in HPC and distributed computing resources. Indeed, there has been a coordinated national effort to build a well-connected distributed computing platform in South Africa\cite{SAGrid}, fully integrated and connected to the national research network\cite{SANREN}. This effort has even been extended at a trans-continental scale, via the signature of a memorandum of understanding between African and European infrastructure providers\cite{AAROC}. With the creation of the Africa-Arabia Regional Operations Centre\footnote{See \url{http://www.africa-grid.org} for details}, several sites across Africa are available to researchers to execute their scientific workflows, and support several different virtual organisations, or communities of practice. However, despite this effort in interoperability and integration, many of these resources are under-utilised at any given time. This seems to point to a paradox of scientific computing, where there is an over-provision of resources, yet scientists are still impeded from executing their calculations.
+It is a central theme of scientific computing that there are never enough resources available to any particular researcher picked at random from a sample. Simultaneously, however, there has been massive and near-pervasive investment in HPC and distributed computing resources. Indeed, there has been a coordinated national effort to build a well-connected distributed computing platform in South Africa\cite{SAGrid}, fully integrated and connected to the national research network\cite{SANREN}. This effort has even been extended at a trans-continental scale, via the signature of a memorandum of understanding between African and European infrastructure providers\cite{AAROC}. With the creation of the Africa-Arabia Regional Operations Centre\footnote{See \url{"http://www.africa-grid.org"} for details}, several sites across Africa are available to researchers to execute their scientific workflows, and support several different virtual organisations, or communities of practice. However, despite this effort in interoperability and integration, many of these resources are under-utilised at any given time. This seems to point to a paradox of scientific computing, where there is an over-provision of resources, yet scientists are still impeded from executing their calculations.
 
 \subsection{Barriers to Entry}
 
-It does not take much analysis of the situation to conclude that this is only seemingly a paradox, and the situation exists due to various barriers to entry, one of which is the ability to actually execute the code
+It does not take much analysis of the situation to conclude that this is only seemingly a paradox, and the situation exists due to various barriers to entry, one of which is the ability to actually execute the code. Indeed one of the main benefits of a distributed computing platform is also one of the main barriers to entry : the complexity of the environment. Researchers seldom need to take into account the configuration of their application or workflow for different platforms, and it is practically unfeasible to insist on homogeneous hardware and configurations across the sites. This results in significantly increased overhead on the part of the researcher to ensure that their application will properly execute at any of the given resources, which thus leads to oversubscription at certain sites and underutilisation at others\footnote{Another effect is the reduction in the capacity of the researcher and experts at sites to effectively collaborate with each other, due to geographical and technical divergence.}.
+
+CODE-RADE aims to reduce or remove the barrier to entry for new applications, thus eliminating the paradox of plentiful computing.
+
+\section{CODE-RADE Design and Philosophy}
+
+Often, the porting and integration of new applications is done by a site administrator who attempts to compile and install the researcher's application according to local procedure and policy. This usually leads to a significant amount of lead-time and depends critically on the ability of the site administrator to interpret the needs of the researcher. Furthermore, there can be much ambiguity regarding the resolution of dependencies, optimisation and versions. Here, we come up against a tension between domain expertise and administrative privileges : it is usually the {\it researcher}, not the site administrator who best understands how to compile the applicaiton. However, it is the site administrator who has the knowledge of the local setup which would integrate the applicaiton appropriately and efficiently. It should also be considered that this overhead is multiplied by the number of distinct application stacks which are in use in scientific domains, and exacerbated by the multitude of dependency and optimisation configurations. For the physical sciences domain, this can be appreciated by considering the wide array of applications registered in the EGI Applications Database\cite{EGIAppDB} in Figure \ref{PhysicalSciencesEGIAppDBI}\footnote{For physics alone, there is a complexity and scale which is prohibitive to any particular site administrator. However if one considers the applications maintained in the Homebrew or EasyBuild repositories - ̃ 600 and  ̃ 1000 respectively - the situation seems untenebale. }
+
+\begin{figure}[h]
+  \begin{center}
+  \includegraphics[width=0.75\textwidth]{physical-sciences-applications-egi-appdb.eps}
+  \caption{\label{PhysicalSciencesEGIAppDBI}Graph showing the number and distribution of applications in the Physical Sciences domain registered in the EGI Application Database.}
+\end{center}
+\end{figure}
 
 
-\section{Hypotheses of Application Porting}
 
-There are 7 hypotheses of bringing applications to a distributed infrastructure, namely:
-\begin{enumerate}
-    \item It is always an application
-    \item No software is an island\\
-      There are always dependencies. Lets make them explicit
-    \item Applications need an environment.\\
-    \item There is more than one environment
-    \item Application solutions decay
-    \item Humans need not apply
-    \item This stuff is not hard.
-  \end{enumerate}
+
+\subsection{CODE-RADE Design Hypotheses}
+
+CODE-RADE provides a means to transparently integrate a new application into an arbitrary site configuration, in a way which is both user-driven and satisfies the constraints imposed by site administrators. In order to implement the solution, a reconsideration was made of the way in which applications are brought to bear in scientific research and computational infrastructure. This was done as far as possible from first principles, by constructing seven hypotheses of bringing applications to distributed infrastructure. In what follows, we discuss the considerations  of these design hypotheses and how they have influenced the development and results of the project.
+
+\begin{description}
+  \item[Hypothesis 1: Every researcher is an application] \hfill \\
+    The core aspect of initial communication between a research infrastructure provider and a researcher is the {\it application}. Every effort should be made then to resolve and understanding of the needs of the researcher down to this level and engage with them on technical aspects of the application.
+  \item[Hypothesis 2: No software is an island] \hfill \\
+    Every scientific application has a dependency list. No definition of an application can be complete without an explicit expression of the list of its dependencies, which should extend as far as possible down userspace.
+  \item[Hypothesis 3: All applications need an environment] \hfill \\
+    Just as bioligical organisms require an environment in which to express their functionality, digital organisms (scientific applications) are sterile if they are not placed in an environment capable of expressing them. This environment can be expressed by combinations of compilers, hardware architecture, application dependencies, middleware stacks, {\it etc}.
+  \item[Hypothesis 4: There is more than one environment] \hfill \\
+    By restricting ourselves to a single environment, we lose main advantages of distributed systems, and erect unncessary barriers to entry for researchers. We should thus design a system which {\it simulates} all of the available sites which applications could in principle be executed, to increase application portability.
+  \item[Hypothesis 5: Solutions Decay] \hfill \\
+    A "solution" in this case refers to a software expression of the method for creating an executable version of the application. The exploration of these solutions, including the attempts which failed, are important components of the system knowledge. However, due to the development of software, it is likely that a found solution will not apply for future iterations. Thus, solutions need to be expressed in a machine-readable form {\it which is maintained in a version-controlled repository}
+  \item[Hypothesis 6: Humans need not apply\footnote{With apolgies to CGP Grey - \url{https://www.youtube.com/watch?v=7Pq-S557XQU}}]
+
+\end{description}
 
 \section{Actors}
 
@@ -533,8 +550,9 @@ Authors should try and use the space allocated to them as economically as possib
 Note that it may be necessary to adjust the size of the figures (using optional arguments to \verb"\includegraphics", for instance \verb"[width=3in]") to get you article to fit within your page allowance or to obtain good page breaks.
 
 \begin{figure}[h]
-\begin{minipage}{14pc}
-\includegraphics[width=14pc]{name.eps}
+  \begin{center}
+    \begin{minipage}{14pc}
+\includegraphics[width=1.0\textwidth]{name.eps}
 \caption{\label{label}Figure caption for first of two sided figures.}
 \end{minipage}\hspace{2pc}%
 \begin{minipage}{14pc}
@@ -566,6 +584,7 @@ Using the graphicx package figures can be included using code such as:
 \bibitem{SANREN} ``SANReN – South African National Research Network." [Online]. Available: http://www.sanren.ac.za/. [Accessed: 25-Jul-2016].
 \bibitem{SANREN-thesis} ``The conceptualisation, design and implementation of a national research and education network", S. A. Brink Master's thesis, University of Stellenbosch. http://hdl.handle.net/10019.1/1516
 \bibitem{AAROC} ``Mou between EGI.eu and CSIR Meraka (African-Arabian Region)", Sergio Andreozzi. Mou between EGI.eu and CSIR Meraka (African-Arabian Region), 15-Apr-2015. [Online]. Available: \url{https://documents.egi.eu/public/ShowDocument?docid=2407}. [Accessed: 25-Jul-2016].
+\bibitem{EGIAppDB} ``EGI Applications Database", EGI Applications Database. [Online]. Available: https://appdb.egi.eu. [Accessed: 25-Jul-2016].
 
 \end{thebibliography}
 
