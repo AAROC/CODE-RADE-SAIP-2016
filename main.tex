@@ -1,5 +1,6 @@
 \documentclass[a4paper]{jpconf}
 \usepackage{graphicx}
+\usepackage{hyperref}
 \begin{document}
 \title{CODE-RADE - Community Infrastructure for the Delivery of Physics Applications}
 
@@ -32,7 +33,7 @@ CODE-RADE aims to reduce or remove the barrier to entry for new applications, th
 
 \section{CODE-RADE Design and Philosophy}
 
-Often, the porting and integration of new applications is done by a site administrator who attempts to compile and install the researcher's application according to local procedure and policy. This usually leads to a significant amount of lead-time and depends critically on the ability of the site administrator to interpret the needs of the researcher. Furthermore, there can be much ambiguity regarding the resolution of dependencies, optimisation and versions. Here, we come up against a tension between domain expertise and administrative privileges : it is usually the {\it researcher}, not the site administrator who best understands how to compile the applicaiton. However, it is the site administrator who has the knowledge of the local setup which would integrate the applicaiton appropriately and efficiently. It should also be considered that this overhead is multiplied by the number of distinct application stacks which are in use in scientific domains, and exacerbated by the multitude of dependency and optimisation configurations. For the physical sciences domain, this can be appreciated by considering the wide array of applications registered in the EGI Applications Database\cite{EGIAppDB} in Figure \ref{PhysicalSciencesEGIAppDBI}\footnote{For physics alone, there is a complexity and scale which is prohibitive to any particular site administrator. However if one considers the applications maintained in the Homebrew or EasyBuild repositories - ̃ 600 and  ̃ 1000 respectively - the situation seems untenebale. }
+Often, the porting and integration of new applications is done by a site administrator who attempts to compile and install the researcher's application according to local procedure and policy. This usually leads to a significant amount of lead-time and depends critically on the ability of the site administrator to interpret the needs of the researcher. Furthermore, there can be much ambiguity regarding the resolution of dependencies, optimisation and versions. Here, we come up against a tension between domain expertise and administrative privileges : it is usually the {\it researcher}, not the site administrator who best understands how to compile the applicaiton. However, it is the site administrator who has the knowledge of the local setup which would integrate the applicaiton appropriately and efficiently. It should also be considered that this overhead is multiplied by the number of distinct application stacks which are in use in scientific domains, and exacerbated by the multitude of dependency and optimisation configurations. For the physical sciences domain, this can be appreciated by considering the wide array of applications registered in the EGI Applications Database\cite{EGIAppDB} in Figure \ref{PhysicalSciencesEGIAppDBI}\footnote{For physics alone, there is a complexity and scale which is prohibitive to any particular site administrator. However if one considers the applications maintained in the Homebrew or EasyBuild repositories - $\tilde 600$ and $\tilde 1000$ respectively - the situation seems untenebale.}
 
 \begin{figure}[h]
   \begin{center}
@@ -55,8 +56,8 @@ CODE-RADE provides a means to transparently integrate a new application into an 
   \item[Hypothesis 4: There is more than one environment] \hfill \\
     By restricting ourselves to a single environment, we lose main advantages of distributed systems, and erect unncessary barriers to entry for researchers. We should thus design a system which {\it simulates} all of the available sites which applications could in principle be executed, to increase application portability.
   \item[Hypothesis 5: Solutions Decay] \hfill \\
-    A "solution" in this case refers to a software expression of the method for creating an executable version of the application. The exploration of these solutions, including the attempts which failed, are important components of the system knowledge. However, due to the development of software, it is likely that a found solution will not apply for future iterations. Thus, solutions need to be expressed in a machine-readable form {\it which is maintained in a version-controlled repository}
-  \item[Hypothesis 6: Humans need not apply\footnote{With apolgies to CGP Grey - https://www.youtube.com/watch?v=7Pq-S557XQU}] \hfill \\
+    A ``solution" in this case refers to a software expression of the method for creating an executable version of the application. The exploration of these solutions, including the attempts which failed, are important components of the system knowledge. However, due to the development of software, it is likely that a found solution will not apply for future iterations. Thus, solutions need to be expressed in a machine-readable form {\it which is maintained in a version-controlled repository}
+  \item[Hypothesis 6: Humans need not apply\footnote{With apologies to CGP Grey - https://www.youtube.com/watch?v=7Pq-S557XQU}] \hfill \\
     If we assume that the previous hypotheses are true, it stands to reason that most of the work to actuall compile and integrate applications can be automated. This represents a major relief of workload from site administrators, as well as ensuring that human errors are less frequently introduced. Furthermore, if a system is built with respecting open standards, it becomes easier to extend it.
   \item[Hypothesis 7: This is not hard] \hfill \\
     While it may seem that we are proposing a radical shift from common practice, which may seem discouraging, the fact is that continuous integration\cite{ContinuousIntegration} and continuous delivery\cite{ContinuousDelivery} has been common practice in the software development world for several years.
@@ -70,14 +71,23 @@ Automated continuous delivery ensures that once applications are integrated, the
 
 \subsection{Actors}
 
-The CODE-RADE platform identifies four kinds of actors which
-The expert in the application - the research software engineer in this case - can thus provide proof positive to the resource providers that applicatons can indeed execute properly on target infrastructures. The characteristics of these target infrastructures are defined by the infrastructure operations team, and actions are taken by automated agents, whilst researchers
+The CODE-RADE platform identifies four kinds of actors which have distinct roles to play :
+\begin{itemize}
+  \item Researchers
+  \item Research Software Engineers
+  \item Infrastructure Operators
+  \item Automated Agents
+\end{itemize}
+
+Researchers are the final users of the application, however are not necessarily the authors of the software. Researchers may not know the details necessary to compile and optimise applications for specific environments, however they are adept in interpreting the results of these applications and are the end consumers of them. The research software engineer, which in some cases is the researcher themselves, thus provides a means to express the application on the various targets in an executable state. Proof positive to the resource providers that applicatons can indeed execute properly on target infrastructures is needed before they will agree to actually host and excute the applications on their sites. Indeed, the characteristics of these target infrastructures are defined by the infrastructure operations team, which know them best. The role of the automtaed agents is to execute the code provided by the research software engineers and see whether it passes the tests set by the infrastructure operations team, at every commit pushed to the repository. This provides a direct link between change in the software and expression of that software (source code version linked to executable version), and since the tests criteria are predefined, once they pass applications can be integrated without human intervention.
+
+In principle, the entire workflow can be driven by researchers themselves.
 
 \subsection{Platform}
 
-wherein we describe the platform components and workflows
 
-\subsection{Components}
+
+\subsubsection{Components}
 
 \begin{itemize}
 	\item Continuous integration from Jenkins.
@@ -85,7 +95,7 @@ wherein we describe the platform components and workflows
     \item Automated software delivery.CVMFS
 \end{itemize}
 
-\subsection{CODE-RADE workflows}
+\subsubsection{CODE-RADE workflows}
 
 \begin{itemize}
 	\item Application porting
