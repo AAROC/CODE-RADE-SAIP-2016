@@ -36,13 +36,10 @@ Often, the porting and integration of new applications is done by a site adminis
 
 \begin{figure}[h]
   \begin{center}
-  \includegraphics[width=0.75\textwidth]{physical-sciences-applications-egi-appdb.eps}
-  \caption{\label{PhysicalSciencesEGIAppDBI}Graph showing the number and distribution of applications in the Physical Sciences domain registered in the EGI Application Database.}
-\end{center}
+    \includegraphics[width=0.75\textwidth]{physical-sciences-applications-egi-appdb.eps}
+    \caption{\label{PhysicalSciencesEGIAppDBI}Graph showing the number and distribution of applications in the Physical Sciences domain registered in the EGI Application Database.}
+  \end{center}
 \end{figure}
-
-
-
 
 \subsection{CODE-RADE Design Hypotheses}
 
@@ -63,21 +60,27 @@ CODE-RADE provides a means to transparently integrate a new application into an 
     If we assume that the previous hypotheses are true, it stands to reason that most of the work to actuall compile and integrate applications can be automated. This represents a major relief of workload from site administrators, as well as ensuring that human errors are less frequently introduced. Furthermore, if a system is built with respecting open standards, it becomes easier to extend it.
   \item[Hypothesis 7: This is not hard] \hfill \\
     While it may seem that we are proposing a radical shift from common practice, which may seem discouraging, the fact is that continuous integration\cite{ContinuousIntegration} and continuous delivery\cite{ContinuousDelivery} has been common practice in the software development world for several years.
-
 \end{description}
 
-\section{Actors}
+Along with these hypotheses, CODE-RADE attempts  to solve problems which impede fluid collaboration and exploitation of computational resources. First of all, the system aims to reduce or remove entire barriers to entry represented by user applications, through the use of continuous integration and delivery, automated builds and version-controlled source code repositories. This allows all involved to know exactly where the application is in its lifecycle, and indeed which build of the application is currently being used.
 
-wherein we describe the actors of the platform and their roles.
+Automated continuous delivery ensures that once applications are integrated, they are immediately available at sites which wish to host them, further reducing the workload on site administrators.
 
-\section{Platform}
+\section{CODE-RADE in detail}
+
+\subsection{Actors}
+
+The CODE-RADE platform identifies four kinds of actors which
+The expert in the application - the research software engineer in this case - can thus provide proof positive to the resource providers that applicatons can indeed execute properly on target infrastructures. The characteristics of these target infrastructures are defined by the infrastructure operations team, and actions are taken by automated agents, whilst researchers
+
+\subsection{Platform}
 
 wherein we describe the platform components and workflows
 
-\subsection{CODE-RADE components}
+\subsection{Components}
 
 \begin{itemize}
-	\item Continuous integratoin from Jenkins.
+	\item Continuous integration from Jenkins.
     \item Version control from github.
     \item Automated software delivery.CVMFS
 \end{itemize}
