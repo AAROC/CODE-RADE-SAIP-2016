@@ -85,15 +85,19 @@ In principle, the entire workflow can be driven by researchers themselves.
 
 \subsection{Platform}
 
-
+In this section, we describe how we have built the CODE-RADE platform, based on the philosophy, hypotheses, and actors described above.
 
 \subsubsection{Components}
 
+The implementation of CODE-RADE consists essentially of three generic components :
+
 \begin{itemize}
-	\item Continuous integration from Jenkins.
-    \item Version control from github.
-    \item Automated software delivery.CVMFS
+	\item Continuous integration tool
+  \item Version controlled software repository
+  \item Automated software delivery tool
 \end{itemize}
+
+There are several choices  which one could use to build a similar platform to CODE-RADE by choosing a particular tool to fulfill each component. In our case, we have selected Jenkins\cite{Jenkins}, GitHub\cite{Github} and CERN Virtual Machine Filesystem\cite{CVMFS}. The reasoning and justification for these specific choices is given in some more detail below in section \ref{Discussion}. The components have specific roles to play in each phase of the CODE-RADE workflow, which we describe next.
 
 \subsubsection{CODE-RADE workflows}
 
@@ -104,7 +108,7 @@ In principle, the entire workflow can be driven by researchers themselves.
    \item publication
 \end{itemize}
 
-\section{Discussion}
+\section{Discussion}\label{Discussion}
 
 wherein we bring it all home and tell you just how awesome CODE-RADE is.
 
@@ -119,7 +123,6 @@ As it says in the title...
 
 \section*{References}
 \begin{thebibliography}{9}
-\bibitem{iopartnum} IOP Publishing is to grateful Mark A Caprio, Center for Theoretical Physics, Yale University, for permission to include the {\tt iopart-num} \BibTeX package (version 2.0, December 21, 2006) with  this documentation. Updates and new releases of {\tt iopart-num} can be found on \verb"www.ctan.org" (CTAN).
 \bibitem{SAGrid}  ``The South African National Compute Grid" B. Becker {\it et al.} IST-Africa 2009 Conference Proceedings, Paul Cunningham and Miriam Cunningham (Eds), IIMC International Information Management Corporation, 2009, ISBN: 978-1-905824-11-3
 \bibitem{SANREN} ``SANReN – South African National Research Network." [Online]. Available: http://www.sanren.ac.za/. [Accessed: 25-Jul-2016].
 \bibitem{SANREN-thesis} ``The conceptualisation, design and implementation of a national research and education network", S. A. Brink Master's thesis, University of Stellenbosch. http://hdl.handle.net/10019.1/1516
@@ -127,7 +130,11 @@ As it says in the title...
 \bibitem{EGIAppDB} ``EGI Applications Database", EGI Applications Database. [Online]. Available: https://appdb.egi.eu. [Accessed: 25-Jul-2016].
 \bibitem{ContinuousIntegration} Paul M. Duvall, ``Continuous Integration". 2007. Pearson Educational Publishers.  ISBN-10: 9780321336385
 \bibitem{ContinuousDelivery} Humble, Jez and Farley, David, ``Continuous delivery: reliable software releases through build, test, and deployment automation". 2010. ISBN 10: 0-321-60191-2
+\bibitem{Jenkins} J. F. Smart, ``Jenkins: The Definitive Guide". O’Reilly Media, Inc., 2011. ISBN 1-4493-0535-0 978-1-4493-0535-2
+\bibitem{Github} See https://developer.github.com/v3
+\bibitem{CVMFS} J. Blomer, P. Buncic, and T. Fuhrmann, ``CernVM-FS: Delivering Scientific Software to Globally Distributed Computing Resources," in Proceedings of the First International Workshop on Network-aware Data Management, New York, NY, USA, 2011, pp. 49–56.
 \end{thebibliography}
+
 
 % \bibliography{Zotero2}{}
 % \bibliographystyle{plain}
