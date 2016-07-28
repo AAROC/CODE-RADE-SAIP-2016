@@ -140,20 +140,28 @@
       \end{enumerate}
   \end{description}
 
+% TODO - Add figure of the workflow
+
 Each job as defined on Jenkins consists of at least these three tasks. If each passes successfully, a job to update the CVMFS repository is triggered, which puts the repository into transaction, pulls in the newly built applications and module files, then publishes a new version of the repository. This is automatically and transparently available at sites after a few seconds, once the CVMFS client detects the change in the repository hash. In order to make it easier for end users or client applications to check which version of the repository they are using\footnote{This can be determined more accurately using the cvmfs client tools, but this may not be intuitive to users.}, an integer increment is added to a file in the repository which is linked to the job which resulted in the latest version.
 
 In short, a commit to a repository by a researcher or RSE will result in the application being automatically delivered to arbitrary endpoints, as long as quality and functional tests set by Ops and researchers respectively are passed.
 
 	\section{Discussion}\label{Discussion}
 
-Our particular combination of existing tools (Github, Jenkins and CVMFS) has resulted in a powerful platform with which to exploit any existing computational infrastructure, in an automated user-driven way. Some aspects should be highlighted.
+Our particular combination of existing tools (Github, Jenkins and CVMFS) has resulted in a powerful platform with which to exploit any existing computational infrastructure, in an automated user-driven way. Some aspects which together make CODE-RADE a novel and powerful platform should be highlighted.
 
 \subsection{CODE-RADE is cross-platform}
-% TODO - explain our targets
 
-Build and test artifacts for an arbitrary set of targets.
-Promote diversity in computing platforms.
-Ensure proper optimisations and application portability
+CODE-RADE takes a software description of an scientific tool and builds a digital expression which can be executed on arbitrary architectures. This makes CODE-RADE different from more traditional package managers, since these only build for the architecture on which the user is currently. By simulating the execution environment which may in principle be available at geographically distributed sites. We currently define a target according to a matrix of characteristics, which are encoded as variables in the build and deploy environments :
+
+\begin{description}
+	\item[ARCH]: The CPU architecture of the execution environment
+	\item[OS]: The operating system of the execution environment
+	\item[SITE]: A meta-variable encompassing aspects of specialised hardware (GPU, Myrinet, GPFS, etc) and other aspects (software licenses, available middleware etc.)
+\end{description}
+
+For each combination of these axes, specific optimisations can be applied, ensuring that the final result (compiled application) is both properly compiled, and will execute efficiently on the target site
+By building on as many environments as possible, for as many combinations as possible, CODE-RADE promotes diversity in computing platforms, without exacerbating the paradox of plentiful computing.
 
 \subsection{CODE-RADE is atomic}
 % TODO - every git hash is linked to a cvmfs hash. you can do reproducibilty studies and link research outputs
