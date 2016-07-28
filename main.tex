@@ -74,9 +74,9 @@ Automated continuous delivery ensures that once applications are integrated, the
 The CODE-RADE platform identifies four kinds of actors which have distinct roles to play :
 \begin{itemize}
   \item Researchers
-  \item Research Software Engineers
-  \item Infrastructure Operators
-  \item Automated Agents
+  \item Research Software Engineers (RSE)
+  \item Infrastructure Operators (Ops)
+  \item Automated Agents (Bots)
 \end{itemize}
 
 Researchers are the final users of the application, however are not necessarily the authors of the software. Researchers may not know the details necessary to compile and optimise applications for specific environments, however they are adept in interpreting the results of these applications and are the end consumers of them. The research software engineer, which in some cases is the researcher themselves, thus provides a means to express the application on the various targets in an executable state. Proof positive to the resource providers that applicatons can indeed execute properly on target infrastructures is needed before they will agree to actually host and excute the applications on their sites. Indeed, the characteristics of these target infrastructures are defined by the infrastructure operations team, which know them best. The role of the automtaed agents is to execute the code provided by the research software engineers and see whether it passes the tests set by the infrastructure operations team, at every commit pushed to the repository. This provides a direct link between change in the software and expression of that software (source code version linked to executable version), and since the tests criteria are predefined, once they pass applications can be integrated without human intervention.
@@ -99,14 +99,23 @@ The implementation of CODE-RADE consists essentially of three generic components
 
 There are several choices  which one could use to build a similar platform to CODE-RADE by choosing a particular tool to fulfill each component. In our case, we have selected Jenkins\cite{Jenkins}, GitHub\cite{Github} and CERN Virtual Machine Filesystem\cite{CVMFS}. The reasoning and justification for these specific choices is given in some more detail below in section \ref{Discussion}. The components have specific roles to play in each phase of the CODE-RADE workflow, which we describe next.
 
-\subsubsection{CODE-RADE workflows}
+\subsubsection{CODE-RADE workflow}
 
-\begin{itemize}
-	\item Application porting
-   \item delivery
-   \item review
-   \item publication
-\end{itemize}
+Although the main aim of CODE-RADE is to ensure that applicaitons are available for execution on arbitrary remote sites, there are collateral issues which have importance to a community. We identify several goals in CODE-RADE which have their own flow of actions and we thus define the generic workflow for application {\bf integration, delivery, review} and {\bf publication}.
+
+The most common workflow is simply stated as :
+
+\begin{enumerate}
+  \item Build
+  \item Test
+  \item Deliver
+\end{enumerate}
+
+The first step (build) this refers to the synchronisation of the source code with relevant updates. This is initiated by the Research Software Engineer: a commit is made to a repository, detailing a change which the RSE 
+
+\begin{description}
+  \item[Integration Workf]
+\end{description}
 
 \section{Discussion}\label{Discussion}
 
@@ -134,8 +143,6 @@ As it says in the title...
 \bibitem{Github} See https://developer.github.com/v3
 \bibitem{CVMFS} J. Blomer, P. Buncic, and T. Fuhrmann, ``CernVM-FS: Delivering Scientific Software to Globally Distributed Computing Resources," in Proceedings of the First International Workshop on Network-aware Data Management, New York, NY, USA, 2011, pp. 49–56.
 \end{thebibliography}
-
-
 % \bibliography{Zotero2}{}
 % \bibliographystyle{plain}
 \end{document}
