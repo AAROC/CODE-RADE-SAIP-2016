@@ -1,7 +1,7 @@
 \documentclass[a4paper]{jpconf}
 \usepackage{graphicx}
 \usepackage{hyperref}
-\usepackage{listings}
+\usepackage{enumitem}
 \usepackage[scaled=0.85]{beramono}
 \begin{document}
 \title{CODE-RADE - Community Infrastructure for the Delivery of Physics Applications}
@@ -108,29 +108,54 @@
 
 	The most common workflow is simply stated as :
 
-	\begin{enumerate}
+	\begin{enumerate}[label=\arabic*]
 		\item Build
 		\item Test
 		\item Deliver
 	\end{enumerate}
 
-	The first step (build) this refers to the synchronisation of the source code with relevant updates. This is initiated by the Research Software Engineer: a commit is made to a repository, detailing a change which the RSE authors. This triggers an event on Jenkins, which pulls the latest commit and executes the scripts in the repository which will build and test the code.
+	The first step (build) this refers to the synchronisation of the source code with relevant updates. This is initiated by the Research Software Engineer: a commit is made to a repository, detailing a change which the RSE authors. This triggers an event on Jenkins, which pulls the latest commit and executes the scripts in the repository which will build and test the code. The second step (Test) is conditionally executed on success of the previous step. This step checks the viability of the built application and executes whatever tests are specified, then installs the application into the integration environment. Finally the third step (Deliver) cleans the built application and installs it into the deploy environment, then ships the executable code to the repository for subsequent replication.
 
-	Although there are several tools for building widely-used applications (see Section \ref{Discussion} below), we have chosen a convention within the project to have three scripts which perform the compilation, functional testing and integration into the delivery environment respectively :
+	Although there are several tools for building widely-used applications (see Section \ref{Discussion} below), we have chosen a convention within the project to have three scripts which perform the compilation, functional testing and integration into the delivery environment respectively. These have a pattern of phases :
 
   \begin{description}
-    \item[Build  \texttt{build.sh}]:
-      \begin{enumerate}
+    \item[Build - \texttt{build.sh}] does the following :
+      \begin{enumerate}[label=\arabic*]
         \item Ensure that the source bundle for the requested application is available and up to date locally.
-        \item Configure the build (usually using traditional AutoTools \cite{AutoTools} or CMake \cite{CMake} : {\ttfamily ./configure \&\& make} ). This phase is intended to determine whether the application has the relevant dependencies already included in the repository, and whether it can be compiled with the availabe compilers and dependencies.
+        \item Configure the build (usually using traditional AutoTools \cite{AutoTools} or CMake \cite{CMake} : \texttt{./configure \&\& make}). This phase is intended to determine whether the application has the relevant dependencies already included in the repository, and whether it can be compiled with the availabe compilers and dependencies.
       \end{enumerate}
-    \item[Test{\ttfamily check-build.sh}]:
+    \item[Test - \texttt{check-build}] does the following :
+      \begin{enumerate}[label=\arabic*]
+        \item Execute any internal functional tests that the application may contain.
+        \item Execute integration tests that the Ops team specifies
+        \item Install the application into the integration environment - this ensures that the compiled application (binaries and libraries) are available for dependent applications, and a modulefile is created to easily add the application to a shell.
+        \item Execute (in the integration environment) any researcher-specified tests, referred to a minimum viable execution.
+      \end{enumerate}
+    \item[Deliver - \texttt{deploy.sh}] does the following :
+      \begin{enumerate}[label=\arabic* ]
+        \item Clean the build and prepare for recompilation using the deploy environment
+        \item Recompile using the deploy environment
+        \item Install into the deploy environment
+        \item Create the module file for the application.
+      \end{enumerate}
   \end{description}
 
+Each job as defined on Jenkins consists of at least these three tasks. If each passes successfully, a job to update the CVMFS repository is triggered, which puts the repository into transaction, pulls in the newly built applications and module files, then publishes a new version of the repository. This is automatically and transparently available at sites after a few seconds, once the CVMFS client detects the change in the repository hash. In order to make it easier for end users or client applications to check which version of the repository they are using\footnote{This can be determined more accurately using the cvmfs client tools, but this may not be intuitive to users.}, an integer increment is added to a file in the repository which is linked to the job which resulted in the latest version.
+
+In short, a commit to a repository by a researcher or RSE will result in the application being automatically delivered to arbitrary endpoints, as long as quality and functional tests set by Ops and researchers respectively are passed.
 
 	\section{Discussion}\label{Discussion}
 
-	wherein we bring it all home and tell you just how awesome CODE-RADE is.
+Our particular combination of existing tools (Github, Jenkins and CVMFS) has resulted in a powerful platform with which to exploit any existing computational infrastructure, in an automated user-driven way. Some aspects should be highlighted.
+
+\subsection{CODE-RADE is cross-platform}
+
+\subsection{CODE-RADE is atomic}
+
+\subsection{CODE-RADE is community-based}
+
+\subsection{CODE-RADE is Automated}
+
 
 
 	\subsection{CODE-RADE for Physics}
