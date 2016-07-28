@@ -1,7 +1,7 @@
 \documentclass[a4paper]{jpconf}
 \usepackage{graphicx}
 \usepackage{hyperref}
-\usepackage{listings}
+\usepackage{courier}
 \usepackage[scaled=0.85]{beramono}
 \begin{document}
 \title{CODE-RADE - Community Infrastructure for the Delivery of Physics Applications}
@@ -119,10 +119,10 @@
 	Although there are several tools for building widely-used applications (see Section \ref{Discussion} below), we have chosen a convention within the project to have three scripts which perform the compilation, functional testing and integration into the delivery environment respectively :
 
   \begin{description}
-    \item[Build  \texttt{build.sh}]:
+    \item[Build  \texttt{build.sh} ]:
       \begin{enumerate}
         \item Ensure that the source bundle for the requested application is available and up to date locally.
-        \item Configure the build (usually using traditional AutoTools \cite{AutoTools} or CMake \cite{CMake} : {\ttfamily ./configure \&\& make} ). This phase is intended to determine whether the application has the relevant dependencies already included in the repository, and whether it can be compiled with the availabe compilers and dependencies.
+        \item Configure the build (usually using traditional AutoTools \cite{AutoTools} or CMake \cite{CMake} : {\tt ./configure \&\& make} ). This phase is intended to determine whether the application has the relevant dependencies already included in the repository, and whether it can be compiled with the availabe compilers and dependencies.
       \end{enumerate}
     \item[Test{\ttfamily check-build.sh}]:
   \end{description}
