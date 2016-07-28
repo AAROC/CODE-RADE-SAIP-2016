@@ -116,15 +116,15 @@
 
 	The first step (build) this refers to the synchronisation of the source code with relevant updates. This is initiated by the Research Software Engineer: a commit is made to a repository, detailing a change which the RSE authors. This triggers an event on Jenkins, which pulls the latest commit and executes the scripts in the repository which will build and test the code.
 
-	Although there are several tools for building widely-used applications (see Section \ref{Discussion} below ), we have chosen a convention within the project to have three scripts which perform the compilation, functional testing and integration into the delivery environment respectively :
+	Although there are several tools for building widely-used applications (see Section \ref{Discussion} below), we have chosen a convention within the project to have three scripts which perform the compilation, functional testing and integration into the delivery environment respectively :
 
   \begin{description}
-    \item[Build] {\ttfamily build.sh}:
-    \begin{enumerate}
-      \item Ensure that the source bundle for the requested application is available and up to date locally.
-      \item Configure the build (usually using traditional AutoTools \cite{AutoTools} or CMake \cite{CMake} : {\ttfamily ./configure \&\& make} ). This phase is intended to determine whether the application has the relevant dependencies already included in the repository, and whether it can be compiled with the availabe compilers and dependencies.
-    \end{enumerate}
-    \item[Test] {\ttfamily check-build.sh}:
+    \item[Build  \texttt{build.sh}]:
+      \begin{enumerate}
+        \item Ensure that the source bundle for the requested application is available and up to date locally.
+        \item Configure the build (usually using traditional AutoTools \cite{AutoTools} or CMake \cite{CMake} : {\ttfamily ./configure \&\& make} ). This phase is intended to determine whether the application has the relevant dependencies already included in the repository, and whether it can be compiled with the availabe compilers and dependencies.
+      \end{enumerate}
+    \item[Test{\ttfamily check-build.sh}]:
   \end{description}
 
 
